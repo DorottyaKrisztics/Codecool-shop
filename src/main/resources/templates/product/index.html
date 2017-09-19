@@ -35,7 +35,7 @@
 
 <div class="container" th:each="cat : ${category}">
     <div class="well well-sm">
-        <strong th:text="${cat.name}"><a href="category.html">Category Title</a></strong>
+        <a th:href="@{~/category(id=${cat.getId()})}"><strong th:text="${cat.name}">Category Title</strong></a>
     </div>
     <!--<table>
         <tr th:each="prod : ${products}">
