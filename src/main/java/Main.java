@@ -36,6 +36,12 @@ public class Main {
            return new ThymeleafTemplateEngine().render( ProductController.renderProductCategory(req, res, id) );
         });
 
+        get("/supplier", (Request req, Response res) -> {
+            System.out.println(req.queryParams("id"));
+            int id = Integer.parseInt(req.queryParams("id"));
+            return new ThymeleafTemplateEngine().render( ProductController.renderSupplier(req, res ,id));
+        });
+
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
