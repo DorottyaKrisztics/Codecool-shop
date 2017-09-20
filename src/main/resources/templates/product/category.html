@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Codecool Shop</title>
+    <title>This is the category page k?!?!?!?!?!</title>
 
     <!-- Latest compiled and minified Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -30,24 +30,14 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1 >Codecool Shop</h1>
+    <h1 th:text="${category.name}">Category</h1>
 </div>
 
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Browes by Suppliers
-        <span class="caret"></span></button>
-    <ul class="dropdown-menu">
-        <a th:each="sup : ${supplier}" th:href="@{~/supplier(id=${sup.getId()})}"><li  th:text="${sup.name}"></li></a>
-    </ul>
-</div>
-<div class="container" th:each="cat : ${category}">
-    <div class="well well-sm">
-        <a th:href="@{~/category(id=${cat.getId()})}"><strong th:text="${cat.name}">Category Title</strong></a>
-    </div>
+<div class="container">
 
     <div id="products" class="row list-group">
         <div th:each="prod : ${products}">
-        <div class="item col-xs-4 col-lg-4"  th:if="${cat.name == prod.productCategory.name}">
+        <div class="item col-xs-4 col-lg-4" >
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="caption">
