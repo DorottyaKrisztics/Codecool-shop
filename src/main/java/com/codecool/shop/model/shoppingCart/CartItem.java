@@ -5,7 +5,7 @@ import com.codecool.shop.model.Product;
 /**
  * A CartItem stores a Product and the amount of this Product.
  */
-class CartItem {
+public class CartItem {
 
     private Product product;
     private int amount;
@@ -15,11 +15,11 @@ class CartItem {
         this.amount = 1;
     }
 
-    protected int getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    Product getProduct() {
+    public Product getProduct() {
         return product;
     }
 
