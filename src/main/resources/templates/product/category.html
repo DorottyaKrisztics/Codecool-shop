@@ -30,22 +30,14 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Category</h1>
+    <h1 th:text="${category.name}">Category</h1>
 </div>
 
-<div class="container" th:each="cat : ${category}">
-    <div class="well well-sm">
-        <strong th:text="${cat.name}"><a href="category.html">Category Title</a></strong>
-    </div>
-    <!--<table>
-        <tr th:each="prod : ${products}">
-            <td th:text="${category}">Onions</td>
-        </tr>
-    </table>-->
+<div class="container">
 
     <div id="products" class="row list-group">
         <div th:each="prod : ${products}">
-        <div class="item col-xs-4 col-lg-4"  th:if="${cat.name == prod.productCategory.name}">
+        <div class="item col-xs-4 col-lg-4" >
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="caption">
