@@ -8,11 +8,12 @@ import java.util.List;
 
 public class ShoppingCart {
 
-    public static List<CartItem> cartItems = new ArrayList<>();
+    private static List<CartItem> cartItems = new ArrayList<>();
     private int totalItemCount;
     private static ShoppingCart instance = null;
 
-    private ShoppingCart() {}
+    private ShoppingCart() {
+    }
 
     public static ShoppingCart getInstance() {
         if (instance == null) return new ShoppingCart();
@@ -20,9 +21,8 @@ public class ShoppingCart {
     }
 
     /**
-     * Adds a single item to the shopping cart.
-     * If there is mor with this id,
-     * it increases the item counter by oe than one itemne.
+     * Adds a single item to the shopping cart if there is only one item having this id.
+     * If there is more than one item with this id, it increases the item counter by one.
      *
      * @param productId product to add
      */
@@ -43,9 +43,8 @@ public class ShoppingCart {
     }
 
     /**
-     * Removes a single item from the shopping cart.
-     * If there is more than one item with this id,
-     * it decreases the item counter by one.
+     * Removes a single item from the shopping cart if there is only one item having this id.
+     * If there is more than one item with this id, it decreases the item counter by one.
      *
      * @param productId id of the product to remove
      */
@@ -87,10 +86,15 @@ public class ShoppingCart {
                 .findFirst().orElse(null);
     }
 
+    /**
+     * Returns the total amount to pay
+     *
+     * @return total amount to pay
+     */
     public float getAllPrice() {
         float result = 0;
         for (CartItem cartItem : cartItems) {
-            result += cartItem.getAmount()* cartItem.getProduct().getDefaultPrice();
+            result += cartItem.getAmount() * cartItem.getProduct().getDefaultPrice();
         }
         return result;
     }

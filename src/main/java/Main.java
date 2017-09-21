@@ -5,7 +5,6 @@ import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
-import com.codecool.shop.model.shoppingCart.CartItem;
 import com.codecool.shop.model.shoppingCart.ShoppingCart;
 import spark.Request;
 import spark.Response;
@@ -36,7 +35,6 @@ public class Main {
 
         get("/cartReview", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(req, res) );
-            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
            get("/category", (Request req, Response res) -> {
                System.out.println(req.queryParams("id"));
