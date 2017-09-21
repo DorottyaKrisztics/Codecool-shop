@@ -38,7 +38,7 @@
     <div class="well well-sm text-right">
         <a class="btn btn-success" href="cartreview" role="button">Shopping Cart</a>
     </div>
-
+<div class="well well-sm">
     <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Browse by Suppliers
             <span class="caret"></span></button>
@@ -48,6 +48,16 @@
             </a>
         </ul>
     </div>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Browse by Categories
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <a th:each="cat : ${category}" th:href="@{~/category(id=${cat.getId()})}">
+                <li th:text="${cat.name}"></li>
+            </a>
+        </ul>
+    </div>
+</div>
     <div class="container" th:each="cat : ${category}">
         <div class="well well-sm">
             <a th:href="@{~/category(id=${cat.getId()})}"><strong th:text="${cat.name}">Category Title</strong></a>

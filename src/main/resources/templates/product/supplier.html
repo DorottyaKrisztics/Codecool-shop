@@ -33,6 +33,29 @@
     <h1 th:text="${supplier.name}">Supplier</h1>
 </div>
 <div class="container">
+    <div class="well well-sm text-right">
+        <a class="btn btn-success" href="index" role="button">Main Page </a>
+    </div>
+    <div class="well well-sm">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Browse by Suppliers
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <a th:each="sup : ${allsupplier}" th:href="@{~/supplier(id=${sup.getId()})}">
+                    <li th:text="${sup.name}"></li>
+                </a>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Browse by Categories
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <a th:each="cat : ${category}" th:href="@{~/category(id=${cat.getId()})}">
+                    <li th:text="${cat.name}"></li>
+                </a>
+            </ul>
+        </div>
+    </div>
     <form action="/addtocart" method="post">
         <div id="products" class="row list-group">
             <div th:each="prod : ${products}">
