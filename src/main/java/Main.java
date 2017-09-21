@@ -1,16 +1,19 @@
+import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.shoppingCart.ShoppingCart;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
 import static java.lang.Integer.parseInt;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
-
-import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.model.*;
-import com.codecool.shop.model.shoppingCart.ShoppingCart;
-
-import spark.Request;
-import spark.Response;
-import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 
 public class Main {
@@ -32,57 +35,54 @@ public class Main {
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above
-        get("/index", (Request req, Response res) -> {
+        get("/index", (req, res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
-        get("/cartReview", (Request req, Response res) -> {
+        get("/cartreview", (req, res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderCartReview(req, res));
         });
-        get("/checkout", (Request req, Response res) -> {
+        get("/checkout", (req, res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderCheckout(req, res));
         });
-        post("/payment", (Request req, Response res ) -> {
+        post("/payment", (req, res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderPayment(req, res));
 
         });
-        get("/category", (Request req, Response res) -> {
+        get("/category", (req, res) -> {
             System.out.println(req.queryParams("id"));
             int id = Integer.parseInt(req.queryParams("id"));
             return new ThymeleafTemplateEngine().render(ProductController.renderProductCategory(req, res, id));
         });
 
-        get("/supplier", (Request req, Response res) -> {
+        get("/supplier", (req, res) -> {
             System.out.println(req.queryParams("id"));
             int id = parseInt(req.queryParams("id"));
             return new ThymeleafTemplateEngine().render(ProductController.renderSupplier(req, res, id));
         });
 
-        post("/addtocart", (request, response) -> {
-            String id = request.queryParams().iterator().next();
+        post("/addtocart", (req, res) -> {
+            String id = req.queryParams().iterator().next();
             ShoppingCart.getInstance().addItem(Integer.parseInt(id));
-            return "id added: " + id;
+            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
-        post("/index", (Request req, Response res) -> {
+        post("/index", (req, res) -> {
             ShoppingCart.getInstance().dropCartItems();
             return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
-        post("/removeItem", (request, response) -> {
-            String itemId = request.queryParams().iterator().next();
+        post("/removeitem", (req, res) -> {
+            String itemId = req.queryParams().iterator().next();
             ShoppingCart.getInstance().removeProduct(Integer.parseInt(itemId));
-            return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(request, response) );
+            return new ThymeleafTemplateEngine().render(ProductController.renderCartReview(req, res));
         });
-        post("/setItemAmount", (request, response) -> {
-            String itemId = request.queryParams().iterator().next();
-            String itemAmount = request.queryParams(itemId);
+        post("/setitemamount", (req, res) -> {
+            String itemId = req.queryParams().iterator().next();
+            String itemAmount = req.queryParams(itemId);
             ShoppingCart.getInstance().getCartItemById(Integer.parseInt(itemId)).setAmount(Integer.parseInt(itemAmount));
-
-            return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(request, response) );
+            return new ThymeleafTemplateEngine().render(ProductController.renderCartReview(req, res));
         });
-
-
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
