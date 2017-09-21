@@ -40,6 +40,10 @@ public class Main {
         get("/checkout", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderCheckout(req, res));
         });
+        post("/payment", (Request req, Response res ) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.renderPayment(req, res));
+
+        });
         get("/category", (Request req, Response res) -> {
             System.out.println(req.queryParams("id"));
             int id = Integer.parseInt(req.queryParams("id"));

@@ -31,6 +31,7 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
 
     }
+
     public static ModelAndView renderProductCategory(Request req, Response res, int id) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -41,6 +42,7 @@ public class ProductController {
         return new ModelAndView(params, "product/category");
 
     }
+
     public static ModelAndView renderSupplier(Request req, Response res, int id) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -53,7 +55,6 @@ public class ProductController {
         return new ModelAndView(params, "product/supplier");
 
     }
-
 
 
     public static ModelAndView renderCartReview(Request req, Response res) {
@@ -81,6 +82,17 @@ public class ProductController {
         return new ModelAndView(params, "product/checkout");
     }
 
+    public static ModelAndView renderPayment(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        List<CartItem> cartItems = ShoppingCart.getInstance().getCartItems();
+        float totalPrice = ShoppingCart.getInstance().getAllPrice();
+
+        Map params = new HashMap<>();
+        params.put("totalfee", totalPrice);
+        return new ModelAndView(params, "product/payment");
+    }
 
 
 }
