@@ -63,11 +63,13 @@
             </td>
             <td data-th="Price" th:text="${item.getProduct().getPrice()}">Price</td>
             <td data-th="Quantity">
-                <input type="number" class="form-control text-center" th:value="${item.getAmount()}"/>
+                <form action="setItemAmount" method="post">
+                    <input th:name="${item.getProduct().id}" type="number" class="form-control text-center" th:value="${item.getAmount()}"></input>
+                    <button class="btn btn-info btn-sm btn-group-justified"><i class="glyphicon glyphicon-refresh"></i></button>
+                </form>
             </td>
             <td data-th="Subtotal" class="text-center" th:text="${item.getProduct().getDefaultPrice()*item.getAmount()}">Subtotal</td>
             <td class="actions" data-th="">
-                <button class="btn btn-info btn-sm"><i class="glyphicon glyphicon-refresh"></i></button>
                 <form action="/removeItem" method="post">
                 <button class="btn btn-danger btn-sm" th:name="${item.getProduct().id}"><i class="glyphicon glyphicon-trash"></i></button>
                 </form>
