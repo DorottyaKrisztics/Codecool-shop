@@ -7,12 +7,11 @@ import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
 import com.codecool.shop.model.shoppingCart.ShoppingCart;
-import lombok.val;
+
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-import java.util.Set;
 
 public class Main {
 
