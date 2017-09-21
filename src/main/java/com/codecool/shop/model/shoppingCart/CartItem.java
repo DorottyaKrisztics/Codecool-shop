@@ -19,6 +19,29 @@ public class CartItem {
         return amount;
     }
 
+    /**
+     * Sets a new amount if it is valid.
+     *
+     * @param amount
+     */
+    public void setAmount(int amount) {
+        int difference = amount - this.amount;
+        ShoppingCart sc = ShoppingCart.getInstance();
+
+        // Zero or negative input removes this object
+        if (amount <= 0) {
+            sc.totalItemCount -= this.amount;
+            sc.getCartItems().remove(this);
+        }
+        else {
+            if (difference < this.amount) {
+                difference = -difference;
+            }
+            sc.totalItemCount += difference;
+            this.amount += difference;
+        }
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -29,12 +52,5 @@ public class CartItem {
 
     protected void decAmount() {
         amount--;
-    }
-
-    public void setAmount(int amount) {
-        if (amount <= 0){
-            ShoppingCart.getInstance().getCartItems().remove(this);
-        }
-        this.amount = amount;
     }
 }

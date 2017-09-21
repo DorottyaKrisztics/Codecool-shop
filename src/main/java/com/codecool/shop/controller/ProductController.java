@@ -28,6 +28,7 @@ public class ProductController {
         params.put("category", productCategoryDataStore.getAll());
         params.put("products", productDataStore.getAll());
         params.put("supplier", supplierDataStore.getAll());
+        params.put("totalitemcount", ShoppingCart.getInstance().getTotalItemCount());
         return new ModelAndView(params, "product/index");
 
     }
@@ -71,7 +72,8 @@ public class ProductController {
         Map params = new HashMap<>();
         params.put("totalprice", totalPrice);
         params.put("cartitems", cartItems);
-        return new ModelAndView(params, "product/cartReview");
+        params.put("totalquantity", ShoppingCart.getInstance().getTotalItemCount());
+        return new ModelAndView(params, "product/cartreview");
     }
 
     public static ModelAndView renderCheckout(Request req, Response res) {

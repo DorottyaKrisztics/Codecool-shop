@@ -37,7 +37,7 @@
 <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
 <div class="container">
     <div class="well well-sm text-right">
-        <a class="btn btn-success" href="index" role="button">Main Page </a>
+        <a class="btn btn-success" href="index" role="button">Main Page</a>
     </div>
 
     <table id="cart" class="table table-hover table-condensed">
@@ -75,7 +75,7 @@
             <td data-th="Subtotal" class="text-center"
                 th:text="${#numbers.formatDecimal(item.getProduct().getDefaultPrice()*item.getAmount(), 0, 'COMMA', 2, 'POINT')}">Subtotal
             </td>
-            <td class="actions" data-th="">
+            <td>
                 <form action="/removeitem" method="post">
                     <button class="btn btn-danger btn-sm" th:name="${item.getProduct().id}"><i
                             class="glyphicon glyphicon-trash"></i></button>
@@ -89,8 +89,8 @@
         </tr>
         <tr>
             <td><a href="index" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-            <td colspan="2" class="hidden-xs"></td>
-            <td class="hidden-xs text-center" th:text="${totalprice}"><strong>Total Price</strong></td>
+            <td th:text="${'Total quantity: '+totalquantity}"></td>
+            <td th:text="${'Total price: '+totalprice}"></td>
             <td><a href="/checkout" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a>
             </td>
         </tr>

@@ -9,15 +9,15 @@ import java.util.List;
 public class ShoppingCart {
 
     private static List<CartItem> cartItems = new ArrayList<>();
-    private int totalItemCount;
+    protected int totalItemCount;
     private static ShoppingCart instance = null;
 
     private ShoppingCart() {
     }
 
     public static ShoppingCart getInstance() {
-        if (instance == null) return new ShoppingCart();
-        else return instance;
+        if (instance == null) instance = new ShoppingCart();
+        return instance;
     }
 
     /**
@@ -86,7 +86,7 @@ public class ShoppingCart {
     }
 
     /**
-     * Returns the total amount to pay
+     * Returns the total amount to pay.
      *
      * @return total amount to pay
      */
@@ -98,8 +98,12 @@ public class ShoppingCart {
         return result;
     }
 
+    /**
+     * Removes all cart items.
+     */
     public void dropCartItems(){
         cartItems.clear();
+        totalItemCount = 0;
     }
 }
 

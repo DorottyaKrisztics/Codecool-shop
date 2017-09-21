@@ -36,7 +36,10 @@
 
 <div class="container">
     <div class="well well-sm text-right">
-        <a class="btn btn-success" href="cartreview" role="button">Shopping Cart</a>
+        <a href="/cartreview">
+            <img th:attr="src='/img/shopping_cart.png'" alt="Shopping Cart" width="42" height="42" border="0"/>
+            <p th:text="'('+${totalitemcount}+')'"></p>
+        </a>
     </div>
 <div class="well well-sm">
     <div class="dropdown">
