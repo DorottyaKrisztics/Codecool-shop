@@ -73,7 +73,7 @@
                 </form>
             </td>
             <td data-th="Subtotal" class="text-center"
-                th:text="${item.getProduct().getDefaultPrice()*item.getAmount()}">Subtotal
+                th:text="${#numbers.formatDecimal(item.getProduct().getDefaultPrice()*item.getAmount(), 0, 'COMMA', 2, 'POINT')}">Subtotal
             </td>
             <td class="actions" data-th="">
                 <form action="/removeitem" method="post">
