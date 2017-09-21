@@ -31,16 +31,19 @@ public class Main {
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/index", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
         get("/cartReview", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(req, res) );
+            return new ThymeleafTemplateEngine().render(ProductController.renderCartReview(req, res));
         });
-           get("/category", (Request req, Response res) -> {
-               System.out.println(req.queryParams("id"));
-               int id = Integer.parseInt(req.queryParams("id"));
-           return new ThymeleafTemplateEngine().render( ProductController.renderProductCategory(req, res, id) );
+        get("/checkout", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.renderCheckout(req, res));
+        });
+        get("/category", (Request req, Response res) -> {
+            System.out.println(req.queryParams("id"));
+            int id = Integer.parseInt(req.queryParams("id"));
+            return new ThymeleafTemplateEngine().render(ProductController.renderProductCategory(req, res, id));
         });
 
         get("/supplier", (Request req, Response res) -> {

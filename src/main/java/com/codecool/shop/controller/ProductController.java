@@ -69,6 +69,18 @@ public class ProductController {
         return new ModelAndView(params, "product/cartReview");
     }
 
+    public static ModelAndView renderCheckout(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        List<CartItem> cartItems = ShoppingCart.getInstance().getCartItems();
+        float totalPrice = ShoppingCart.getInstance().getAllPrice();
+
+        Map params = new HashMap<>();
+        params.put("totalfee", totalPrice);
+        return new ModelAndView(params, "product/checkout");
+    }
+
 
 
 }
