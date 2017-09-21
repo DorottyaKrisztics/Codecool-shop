@@ -54,6 +54,7 @@
         <tr th:each="item: ${cartitems}">
             <td data-th="Product">
                 <div class="row">
+                    <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" th:attr="src='/img/product_' + ${item.getProduct().id} + '.jpg'" alt="" class="img-responsive"/></div>
                     <div class="col-sm-10">
                         <h4 class="nomargin" th:text="${item.getProduct().name}">Product Name</h4>
                         <p th:text="${item.getProduct().getDescription()}">Product description</p>
