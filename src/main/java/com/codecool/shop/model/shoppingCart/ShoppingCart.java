@@ -8,8 +8,16 @@ import java.util.List;
 
 public class ShoppingCart {
 
-    List<CartItem> cartItems = new ArrayList<>();
+    public static List<CartItem> cartItems = new ArrayList<>();
     private int totalItemCount;
+    private static ShoppingCart instance = null;
+
+    private ShoppingCart() {}
+
+    public static ShoppingCart getInstance() {
+        if (instance == null) return new ShoppingCart();
+        else return instance;
+    }
 
     /**
      * Adds a single item to the shopping cart.
@@ -77,6 +85,14 @@ public class ShoppingCart {
         return cartItems.stream().filter(cartItem ->
                 cartItem.getProduct().getId() == productId)
                 .findFirst().orElse(null);
+    }
+
+    public float getAllPrice() {
+        float result = 0;
+        for (CartItem cartItem : cartItems) {
+            result += cartItem.getAmount()* cartItem.getProduct().getDefaultPrice();
+        }
+        return result;
     }
 }
 

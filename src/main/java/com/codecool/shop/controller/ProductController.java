@@ -10,6 +10,8 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import com.codecool.shop.model.shoppingCart.CartItem;
+import com.codecool.shop.model.shoppingCart.ShoppingCart;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -55,6 +57,22 @@ public class ProductController {
         return new ModelAndView(params, "product/supplier");
 
     }
+
+
+
+    public static ModelAndView renderCartReview(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        List<CartItem> cartItems = ShoppingCart.getInstance().getCartItems();
+        float totalPrice = ShoppingCart.getInstance().getAllPrice();
+
+        Map params = new HashMap<>();
+        params.put("totalprice", totalPrice);
+        params.put("cartitems", cartItems);
+        return new ModelAndView(params, "product/cartReview");
+    }
+
 
 
 }
