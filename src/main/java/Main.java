@@ -61,6 +61,10 @@ public class Main {
             ShoppingCart.getInstance().addItem(Integer.parseInt(id));
             return "id added: " + id;
         });
+        post("/index", (Request req, Response res) -> {
+            ShoppingCart.getInstance().dropCartItems();
+            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
+        });
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

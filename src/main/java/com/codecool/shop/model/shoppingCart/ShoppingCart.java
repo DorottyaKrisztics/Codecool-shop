@@ -98,5 +98,9 @@ public class ShoppingCart {
         }
         return result;
     }
+
+    public void dropCartItems(){
+        cartItems.clear();
+    }
 }
 
