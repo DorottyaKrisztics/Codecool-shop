@@ -7,9 +7,11 @@ import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
 import com.codecool.shop.model.shoppingCart.ShoppingCart;
+
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
 
 public class Main {
 
@@ -61,10 +63,26 @@ public class Main {
             ShoppingCart.getInstance().addItem(Integer.parseInt(id));
             return "id added: " + id;
         });
+
         post("/index", (Request req, Response res) -> {
             ShoppingCart.getInstance().dropCartItems();
             return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
+
+        post("/removeItem", (request, response) -> {
+            String itemId = request.queryParams().iterator().next();
+            ShoppingCart.getInstance().removeProduct(Integer.parseInt(itemId));
+            return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(request, response) );
+        });
+        post("/setItemAmount", (request, response) -> {
+            String itemId = request.queryParams().iterator().next();
+            String itemAmount = request.queryParams(itemId);
+            ShoppingCart.getInstance().getCartItemById(Integer.parseInt(itemId)).setAmount(Integer.parseInt(itemAmount));
+
+            return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(request, response) );
+        });
+
+
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

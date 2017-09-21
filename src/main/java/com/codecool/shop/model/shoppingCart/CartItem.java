@@ -31,7 +31,10 @@ public class CartItem {
         amount--;
     }
 
-    protected void setAmount(int amount) {
+    public void setAmount(int amount) {
+        if (amount <= 0){
+            ShoppingCart.getInstance().getCartItems().remove(this);
+        }
         this.amount = amount;
     }
 }
