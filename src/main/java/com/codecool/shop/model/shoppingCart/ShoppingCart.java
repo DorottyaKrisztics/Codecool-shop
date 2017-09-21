@@ -43,19 +43,18 @@ public class ShoppingCart {
     }
 
     /**
-     * Removes a single item from the shopping cart if there is only one item having this id.
-     * If there is more than one item with this id, it decreases the item counter by one.
+     * Removes all the items from the shopping cart with this id and it decreases
+     * the total amount by the amount of removed items.
      *
      * @param productId id of the product to remove
      */
-    public void removeItem(int productId) {
+    public void removeProduct(int productId) {
         CartItem item = getCartItemById(productId);
         if (item != null) {
             int count = item.getAmount();
-            if (count == 1) cartItems.remove(item);
-            else item.decAmount();
+            cartItems.remove(item);
+            totalItemCount -= count;
         }
-        totalItemCount--;
     }
 
     /**
@@ -80,7 +79,7 @@ public class ShoppingCart {
      * @param productId id of the product to find
      * @return If found, returns the item. If not found, returns null.
      */
-    private CartItem getCartItemById(int productId) {
+    public CartItem getCartItemById(int productId) {
         return cartItems.stream().filter(cartItem ->
                 cartItem.getProduct().getId() == productId)
                 .findFirst().orElse(null);

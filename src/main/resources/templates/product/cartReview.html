@@ -54,21 +54,25 @@
         <tr th:each="item: ${cartitems}">
             <td data-th="Product">
                 <div class="row">
-                    <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+                    <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" th:attr="src='/img/product_' + ${item.getProduct().id} + '.jpg'" alt="" class="img-responsive"/></div>
                     <div class="col-sm-10">
                         <h4 class="nomargin" th:text="${item.getProduct().name}">Product Name</h4>
-                        <p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>
+                        <p th:text="${item.getProduct().getDescription()}">Product description</p>
                     </div>
                 </div>
             </td>
             <td data-th="Price" th:text="${item.getProduct().getPrice()}">Price</td>
             <td data-th="Quantity">
-                <input type="number" class="form-control text-center" th:value="${item.getAmount()}"/>
+                <form action="setItemAmount" method="post">
+                    <input th:name="${item.getProduct().id}" type="number" class="form-control text-center" th:value="${item.getAmount()}"></input>
+                    <button class="btn btn-info btn-sm btn-group-justified"><i class="glyphicon glyphicon-refresh"></i></button>
+                </form>
             </td>
             <td data-th="Subtotal" class="text-center" th:text="${item.getProduct().getDefaultPrice()*item.getAmount()}">Subtotal</td>
             <td class="actions" data-th="">
-                <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-                <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                <form action="/removeItem" method="post">
+                <button class="btn btn-danger btn-sm" th:name="${item.getProduct().id}"><i class="glyphicon glyphicon-trash"></i></button>
+                </form>
             </td>
         </tr>
         </tbody>
@@ -77,7 +81,7 @@
             <td class="text-center"><strong>Total</strong></td>
         </tr>
         <tr>
-            <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+            <td><a href="index" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-center" th:text="${totalprice}"><strong>Total Price</strong></td>
             <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
