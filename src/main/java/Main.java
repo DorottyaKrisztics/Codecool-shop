@@ -54,6 +54,12 @@ public class Main {
             ShoppingCart.getInstance().addItem(Integer.parseInt(id));
             return "id added: " + id;
         });
+        post("/removeItem", ((request, response) -> {
+            String itemId = request.queryParams().iterator().next();
+            ShoppingCart.getInstance().removeItem(Integer.parseInt(itemId));
+            return new ThymeleafTemplateEngine().render( ProductController.renderCartReview(request, response) );
+        }));
+
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

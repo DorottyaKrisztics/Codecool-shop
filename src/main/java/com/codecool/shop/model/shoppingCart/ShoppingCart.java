@@ -52,10 +52,9 @@ public class ShoppingCart {
         CartItem item = getCartItemById(productId);
         if (item != null) {
             int count = item.getAmount();
-            if (count == 1) cartItems.remove(item);
-            else item.decAmount();
+            cartItems.remove(item);
+            totalItemCount -= count;
         }
-        totalItemCount--;
     }
 
     /**
