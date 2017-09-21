@@ -50,7 +50,7 @@
     <div class="well well-sm">
         <a th:href="@{~/category(id=${cat.getId()})}"><strong th:text="${cat.name}">Category Title</strong></a>
     </div>
-
+    <form action="/addtocart" method="post">
     <div id="products" class="row list-group">
         <div th:each="prod : ${products}">
         <div class="item col-xs-4 col-lg-4"  th:if="${cat.name == prod.productCategory.name}">
@@ -64,14 +64,16 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <button class="btn btn-success" type="submit" th:name="${prod.id}">Add to
+                                cart</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div></div>
-
+    </form>
+</div>
 </div>
 
 <div th:replace="footer :: copy"></div>
