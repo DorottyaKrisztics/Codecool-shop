@@ -30,7 +30,6 @@ public class ProductController {
         params.put("supplier", supplierDataStore.getAll());
         params.put("totalitemcount", ShoppingCart.getInstance().getTotalItemCount());
         return new ModelAndView(params, "product/index");
-
     }
 
     public static ModelAndView renderProductCategory(Request req, Response res, int id) {
@@ -73,7 +72,7 @@ public class ProductController {
         params.put("totalprice", totalPrice);
         params.put("cartitems", cartItems);
         params.put("totalquantity", ShoppingCart.getInstance().getTotalItemCount());
-        return new ModelAndView(params, "product/cartreview");
+        return new ModelAndView(params, "product/cartReview");
     }
 
     public static ModelAndView renderCheckout(Request req, Response res) {
