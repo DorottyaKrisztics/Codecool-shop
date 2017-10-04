@@ -1,3 +1,4 @@
+import com.codecool.shop.DbConnection;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
@@ -86,6 +87,8 @@ public class Main {
     }
 
     public static void populateData() {
+
+        System.out.println(new DbConnection().executeQuery("SELECT * FROM product"));
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
