@@ -1,5 +1,8 @@
 package com.codecool.shop;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbConnection {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
@@ -13,14 +16,24 @@ public class DbConnection {
                 DB_PASSWORD);
     }
 
-    public String executeQuery(String query) {
+    public List<ResultSet> execute(String query, boolean isQuery) {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
         ) {
-            statement.executeQuery(query);
-            ResultSet rs = statement.getResultSet();
-            rs.next();
-            return rs.getString("id");
+            if (isQuery) {
+                List<ResultSet> resultSets = new ArrayList<>();
+                statement.executeQuery(query);
+
+                ResultSet rs = statement.getResultSet();
+                while (rs.next()) {
+                    resultSets.add(rs);
+                }
+                return resultSets;
+            }
+            else {
+                statement.executeUpdate(query);
+                return null;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
