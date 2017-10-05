@@ -19,6 +19,7 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore2 = ProductDaoJdbc.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
@@ -26,7 +27,7 @@ public class ProductController {
 
         Map params = new HashMap<>();
         params.put("category", productCategoryDataStore2.getAll());
-        params.put("products", productDataStore.getAll());
+        params.put("products", productDataStore2.getAll());
         params.put("supplier", supplierDataStore2.getAll());
         params.put("totalitemcount", ShoppingCart.getInstance().getTotalItemCount());
         return new ModelAndView(params, "product/index");
