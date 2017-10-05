@@ -94,17 +94,14 @@ public class Main {
 
     public static void populateData() throws SQLException {
 
-        ProductCategoryDaoJdbc productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
-        List<List<String>> allProductCategory = productCategoryDaoJdbc.getAll();
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
+
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ShoppingCart cart = ShoppingCart.getInstance();
 
-        for (List<String> strings : allProductCategory) {
-            productCategoryDataStore.add(new ProductCategory(strings.get(0),strings.get(1),strings.get(2)));
-        }
 
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
