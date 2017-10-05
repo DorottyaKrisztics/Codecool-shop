@@ -5,7 +5,7 @@
 -- Dumped from database version 9.5.8
 -- Dumped by pg_dump version 9.5.8
 
--- Started on 2017-10-05 17:50:18 CEST
+-- Started on 2017-10-05 23:21:51 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -116,9 +116,14 @@ COPY cart (product_id, quantity) FROM stdin;
 --
 
 COPY product (id, name, description, default_price, product_category, product_supplier, image, currency_type) FROM stdin;
-2	norbi2	ídsfísf	200	2	2	df	USD
-1	norbi	ndesc	100	1	1	re	USD
-3	norbi3	sfggs	300	2	3	ER	USD
+8	Ty Beanie Ballz Fable Unicorn Plush	Beanie Ballz are a little wild and whacky, toss 'em and they always land on their feet. Collect them all.	16.9899999999999984	2	4	s	USD
+4	Anal Intruder	This is a good deal though!	100	3	3	s	USD
+5	LEKA Soft toy, ball, multicolor	Fabric: 100 % polyester. Filling: Polyester fiber fill. Recommended for all ages.	1.98999999999999999	2	4	s	USD
+7	Yoda Soft Ball	Star Wars fans will love these fantastic talking plush toys! Choose from Yoda, R2D2, Darth Vader and Chewbacca characters.	8.5	2	1	s	USD
+6	Pokemon ball	Gotta catch ‘em all!	12	2	4	s	USD
+1	Amazon Fire	Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.	49.8999999999999986	1	1	s	USD
+2	Lenovo IdeaPad Miix 700	Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.	479	1	2	s	USD
+3	Amazon Fire HD 8	Amazon's latest Fire HD 8 tablet is a great value for media consumption.	89	1	1	s	USD
 \.
 
 
@@ -129,8 +134,9 @@ COPY product (id, name, description, default_price, product_category, product_su
 --
 
 COPY product_category (id, name, department, description) FROM stdin;
-1	dfssdfdf	sdfssf	aaaaas
-2	bbb	ccc	www
+1	Tablet	Hardware	A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.
+2	Ball	Toys	A stuffed soft ball for playing in the class room
+3	Adult	Hardware	xxx xxx xxx
 \.
 
 
@@ -141,9 +147,10 @@ COPY product_category (id, name, department, description) FROM stdin;
 --
 
 COPY product_supplier (id, name, description) FROM stdin;
-1	sdfgafg	sdfd
-2	yvva	sd
-3	yvfv	ysfg
+1	Amazon	Digital content and services
+2	Lenovo	Computers
+3	eBay	The biggest online store ever
+4	IKEA	Interior design
 \.
 
 
@@ -213,7 +220,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2017-10-05 17:50:18 CEST
+-- Completed on 2017-10-05 23:21:51 CEST
 
 --
 -- PostgreSQL database dump complete
