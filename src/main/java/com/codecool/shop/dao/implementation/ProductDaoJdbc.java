@@ -103,12 +103,26 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        List<Product> result = new ArrayList<>();
+        List<Product> all = getAll();
+        for (Product product : all) {
+            if (product.getSupplier().getName().equals(supplier.getName())){
+                result.add(product);
+            }
+        }
+        return result;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        List<Product> result = new ArrayList<>();
+        List<Product> all = getAll();
+        for (Product product : all) {
+            if (product.getProductCategory().getName().equals(productCategory.getName())){
+                result.add(product);
+            }
+        }
+        return result;
     }
 
     private List<List<String>> execute(String query) {

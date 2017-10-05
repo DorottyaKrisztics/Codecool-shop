@@ -35,29 +35,34 @@ public class ProductController {
 
     public static ModelAndView renderProductCategory(Request req, Response res, int id) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore2 = ProductDaoJdbc.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        SupplierDao supplierDataStore2 = SupplierDaoJdbc.getInstance();
 
         Map params = new HashMap<>();
         params.put("allcategory", productCategoryDataStore2.getAll());
-        params.put("allsupplier", supplierDataStore.getAll());
+        params.put("allsupplier", supplierDataStore2.getAll());
         params.put("category", productCategoryDataStore2.find(id));
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(id)));
+        params.put("products", productDataStore2.getBy(productCategoryDataStore2.find(id)));
         return new ModelAndView(params, "product/category");
 
     }
 
     public static ModelAndView renderSupplier(Request req, Response res, int id) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore2 = ProductDaoJdbc.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        SupplierDao supplierDataStore2 = SupplierDaoJdbc.getInstance();
         Map params = new HashMap<>();
 
-        params.put("allsupplier", supplierDataStore.getAll());
-        params.put("supplier", supplierDataStore.find(id));
-        params.put("category", productCategoryDataStore.getAll());
-        params.put("products", productDataStore.getBy(supplierDataStore.find(id)));
+        params.put("allsupplier", supplierDataStore2.getAll());
+        params.put("supplier", supplierDataStore2.find(id));
+        params.put("category", productCategoryDataStore2.getAll());
+        params.put("products", productDataStore2.getBy(supplierDataStore2.find(id)));
         return new ModelAndView(params, "product/supplier");
 
     }
