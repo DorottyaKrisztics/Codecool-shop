@@ -97,7 +97,6 @@ public class Main {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
 
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ShoppingCart cart = ShoppingCart.getInstance();

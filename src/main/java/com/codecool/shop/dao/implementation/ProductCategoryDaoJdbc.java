@@ -13,7 +13,6 @@ import java.util.List;
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
-    private List<ProductCategory> DATA = new ArrayList<>();
     private static ProductCategoryDaoJdbc instance = null;
 
     private ProductCategoryDaoJdbc() {
@@ -28,24 +27,25 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-//        category.setId(DATA.size() + 1);
-//        DATA.add(category)
         System.out.println("norbi a király");
-
     }
 
     @Override
     public ProductCategory find(int id) {
 
-        List<List<String>> findCategory = execute("SELECT id, name,department,description FROM product_category WHERE id="+ id + ";");
-            ProductCategory jozsi =  new ProductCategory(findCategory.get(0).get(1),findCategory.get(0).get(1),findCategory.get(0).get(2));
-        System.out.println(jozsi);
-            return jozsi;
+        List<List<String>> findCategory = execute("SELECT " +
+                "id, " +
+                "name, " +
+                "department, " +
+                "description " +
+                    "FROM product_category WHERE id="+ id + ";");
+            ProductCategory productCategory =  new ProductCategory(findCategory.get(0).get(1),findCategory.get(0).get(1),findCategory.get(0).get(2));
+        System.out.println(productCategory);
+            return productCategory;
     }
 
     @Override
     public void remove(int id) {
-
     }
 
     private List<List<String>> execute(String query) {
@@ -74,12 +74,17 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     public List<ProductCategory> getAll(){
         List<ProductCategory> getAll = new ArrayList<>();
-        List<List<String>> allProductCategory = execute("SELECT  id, name,department,description FROM product_category");
+        List<List<String>> allProductCategory = execute("SELECT " +
+                "id," +
+                "name," +
+                "department," +
+                "description " +
+                    "FROM product_category");
         for (List<String> strings : allProductCategory) {
             int id =  Integer.parseInt(strings.get(0));
-           ProductCategory SPKW =  new ProductCategory(strings.get(1),strings.get(2),strings.get(3));
-           SPKW.setId(id);
-           getAll.add(SPKW);
+           ProductCategory productCategory =  new ProductCategory(strings.get(1),strings.get(2),strings.get(3));
+           productCategory.setId(id);
+           getAll.add(productCategory);
 
 
         }
