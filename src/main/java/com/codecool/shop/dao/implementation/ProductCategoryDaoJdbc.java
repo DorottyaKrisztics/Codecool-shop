@@ -39,7 +39,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
                 "department, " +
                 "description " +
                     "FROM product_category WHERE id="+ id + ";");
-            ProductCategory productCategory =  new ProductCategory(findCategory.get(0).get(1),findCategory.get(0).get(1),findCategory.get(0).get(2));
+            ProductCategory productCategory =  new ProductCategory(findCategory.get(0).get(1),findCategory.get(0).get(2),findCategory.get(0).get(3));
         System.out.println(productCategory);
             return productCategory;
     }
