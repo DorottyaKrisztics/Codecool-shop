@@ -3,6 +3,7 @@ import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -12,13 +13,18 @@ import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.shoppingCart.ShoppingCart;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+
 import static java.lang.Integer.parseInt;
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
@@ -86,14 +92,15 @@ public class Main {
         enableDebugScreen();
     }
 
-    public static void populateData() {
+    public static void populateData() throws SQLException {
 
-        System.out.println(new DbConnection().executeQuery("SELECT * FROM product"));
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ShoppingCart cart = ShoppingCart.getInstance();
+
 
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");

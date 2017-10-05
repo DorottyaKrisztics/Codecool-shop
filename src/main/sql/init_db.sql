@@ -5,7 +5,7 @@
 -- Dumped from database version 9.5.8
 -- Dumped by pg_dump version 9.5.8
 
--- Started on 2017-10-03 14:36:13 CEST
+-- Started on 2017-10-05 10:28:30 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,7 +24,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2164 (class 0 OID 0)
+-- TOC entry 2166 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -39,9 +39,14 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 184 (class 1259 OID 50888)
--- Name: cart; Type: TABLE; Schema: public; Owner:
+-- TOC entry 181 (class 1259 OID 50897)
+-- Name: cart; Type: TABLE; Schema: public; Owner: postgres
 --
+
+DROP TABLE IF EXISTS cart CASCADE;
+DROP TABLE IF EXISTS product CASCADE;
+DROP TABLE IF EXISTS product_category;
+DROP TABLE IF EXISTS product_supplier CASCADE;
 
 CREATE TABLE cart (
     product_id bigint,
@@ -52,53 +57,57 @@ CREATE TABLE cart (
 ALTER TABLE cart OWNER TO postgres;
 
 --
--- TOC entry 181 (class 1259 OID 50860)
--- Name: product; Type: TABLE; Schema: public; Owner: 
+-- TOC entry 182 (class 1259 OID 50900)
+-- Name: product; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE product (
-    id bigint NOT NULL,
+    id integer NOT NULL,
     name character varying(40),
     description character varying(255),
-    default_price numeric(2,0),
+    default_price double precision,
     product_category bigint,
     product_supplier bigint,
-    image character varying(255)
+    image character varying(255),
+    currency_type text
 );
 
 
 ALTER TABLE product OWNER TO postgres;
 
 --
--- TOC entry 182 (class 1259 OID 50866)
--- Name: product_category; Type: TABLE; Schema: public; Owner:
+-- TOC entry 183 (class 1259 OID 50906)
+-- Name: product_category; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE product_category (
-    id bigint NOT NULL,
-    name character varying(40)
+    id integer NOT NULL,
+    name character varying(40),
+    department text,
+    description text
 );
 
 
 ALTER TABLE product_category OWNER TO postgres;
 
 --
--- TOC entry 183 (class 1259 OID 50869)
--- Name: product_supplier; Type: TABLE; Schema: public; Owner: 
+-- TOC entry 184 (class 1259 OID 50909)
+-- Name: product_supplier; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE product_supplier (
-    id bigint NOT NULL,
-    name character varying(40)
+    id integer NOT NULL,
+    name character varying(40),
+    description text
 );
 
 
 ALTER TABLE product_supplier OWNER TO postgres;
 
 --
--- TOC entry 2156 (class 0 OID 50888)
--- Dependencies: 184
--- Data for Name: cart; Type: TABLE DATA; Schema: public; Owner: 
+-- TOC entry 2155 (class 0 OID 50897)
+-- Dependencies: 181
+-- Data for Name: cart; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY cart (product_id, quantity) FROM stdin;
@@ -106,38 +115,40 @@ COPY cart (product_id, quantity) FROM stdin;
 
 
 --
--- TOC entry 2153 (class 0 OID 50860)
--- Dependencies: 181
--- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: 
---
-
-COPY product (id, name, description, default_price, product_category, product_supplier, image) FROM stdin;
-\.
-
-
---
--- TOC entry 2154 (class 0 OID 50866)
+-- TOC entry 2156 (class 0 OID 50900)
 -- Dependencies: 182
--- Data for Name: product_category; Type: TABLE DATA; Schema: public; Owner: 
+-- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY product_category (id, name) FROM stdin;
+COPY product (id, name, description, default_price, product_category, product_supplier, image, currency_type) FROM stdin;
 \.
 
 
 --
--- TOC entry 2155 (class 0 OID 50869)
+-- TOC entry 2157 (class 0 OID 50906)
 -- Dependencies: 183
--- Data for Name: product_supplier; Type: TABLE DATA; Schema: public; Owner: 
+-- Data for Name: product_category; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY product_supplier (id, name) FROM stdin;
+COPY product_category (id, name, department, description) FROM stdin;
+2	dfssdfdf	sdfssf	aaaaas
+3	bbb	ccc	www
 \.
 
 
 --
--- TOC entry 2033 (class 2606 OID 50873)
--- Name: product_category_pkey; Type: CONSTRAINT; Schema: public; Owner: 
+-- TOC entry 2158 (class 0 OID 50909)
+-- Dependencies: 184
+-- Data for Name: product_supplier; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_supplier (id, name, description) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2035 (class 2606 OID 50961)
+-- Name: product_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY product_category
@@ -145,8 +156,8 @@ ALTER TABLE ONLY product_category
 
 
 --
--- TOC entry 2031 (class 2606 OID 50875)
--- Name: product_pkey; Type: CONSTRAINT; Schema: public; Owner: 
+-- TOC entry 2033 (class 2606 OID 50947)
+-- Name: product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY product
@@ -154,8 +165,8 @@ ALTER TABLE ONLY product
 
 
 --
--- TOC entry 2035 (class 2606 OID 50877)
--- Name: product_supplier_pkey; Type: CONSTRAINT; Schema: public; Owner: 
+-- TOC entry 2037 (class 2606 OID 50975)
+-- Name: product_supplier_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY product_supplier
@@ -163,8 +174,8 @@ ALTER TABLE ONLY product_supplier
 
 
 --
--- TOC entry 2038 (class 2606 OID 50891)
--- Name: cart_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: 
+-- TOC entry 2038 (class 2606 OID 50948)
+-- Name: cart_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY cart
@@ -172,8 +183,8 @@ ALTER TABLE ONLY cart
 
 
 --
--- TOC entry 2036 (class 2606 OID 50878)
--- Name: product_product_category_fkey; Type: FK CONSTRAINT; Schema: public; Owner: 
+-- TOC entry 2039 (class 2606 OID 50962)
+-- Name: product_product_category_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY product
@@ -181,8 +192,8 @@ ALTER TABLE ONLY product
 
 
 --
--- TOC entry 2037 (class 2606 OID 50883)
--- Name: product_product_supplier_fkey; Type: FK CONSTRAINT; Schema: public; Owner: 
+-- TOC entry 2040 (class 2606 OID 50976)
+-- Name: product_product_supplier_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY product
@@ -190,7 +201,7 @@ ALTER TABLE ONLY product
 
 
 --
--- TOC entry 2163 (class 0 OID 0)
+-- TOC entry 2165 (class 0 OID 0)
 -- Dependencies: 7
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -201,7 +212,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2017-10-03 14:36:13 CEST
+-- Completed on 2017-10-05 10:28:30 CEST
 
 --
 -- PostgreSQL database dump complete

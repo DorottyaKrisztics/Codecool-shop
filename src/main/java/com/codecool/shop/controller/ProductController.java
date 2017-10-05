@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -22,10 +23,11 @@ public class ProductController {
     public static ModelAndView renderProducts(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         Map params = new HashMap<>();
-        params.put("category", productCategoryDataStore.getAll());
+        params.put("category", productCategoryDataStore2.getAll());
         params.put("products", productDataStore.getAll());
         params.put("supplier", supplierDataStore.getAll());
         params.put("totalitemcount", ShoppingCart.getInstance().getTotalItemCount());
@@ -35,12 +37,13 @@ public class ProductController {
     public static ModelAndView renderProductCategory(Request req, Response res, int id) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore2 = ProductCategoryDaoJdbc.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
         Map params = new HashMap<>();
-        params.put("allcategory", productCategoryDataStore.getAll());
+        params.put("allcategory", productCategoryDataStore2.getAll());
         params.put("allsupplier", supplierDataStore.getAll());
-        params.put("category", productCategoryDataStore.find(id));
+        params.put("category", productCategoryDataStore2.find(id));
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(id)));
         return new ModelAndView(params, "product/category");
 
