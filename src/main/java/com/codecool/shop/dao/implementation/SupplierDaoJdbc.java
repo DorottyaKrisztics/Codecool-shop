@@ -36,7 +36,7 @@ public class SupplierDaoJdbc implements SupplierDao {
                 "id, " +
                 "name, " +
                 "description " +
-                    "FROM product_category WHERE id="+ id + ";");
+                    "FROM product_supplier WHERE id="+ id + ";");
         Supplier supplier =  new Supplier(findSupplier.get(0).get(1),findSupplier.get(0).get(2));
         System.out.println(supplier);
         return supplier;
